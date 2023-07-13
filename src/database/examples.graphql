@@ -1,0 +1,17 @@
+query Categories {
+  categories {
+    name
+    posts {
+      title
+      user {
+        name
+      }
+    }
+  }
+}
+
+query Users {
+  users(where: { name: { contains: "Mat" } }) {
+    name
+  }
+}

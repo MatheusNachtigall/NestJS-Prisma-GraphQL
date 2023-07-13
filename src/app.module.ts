@@ -5,7 +5,9 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
 import { UsersModule } from './modules/users/users.module';
 import { PostsModule } from './modules/posts/posts.module';
 import { CategoriesModule } from './modules/categories/categories.module';
-import { SeedModule } from './modules/seed/seed.module';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { PrismaService } from './database/PrismaService';
 
 @Module({
 	imports: [
@@ -19,9 +21,8 @@ import { SeedModule } from './modules/seed/seed.module';
 		UsersModule,
 		PostsModule,
 		CategoriesModule,
-		SeedModule,
 	],
-	controllers: [],
-	providers: [],
+	controllers: [AppController],
+	providers: [AppService, PrismaService],
 })
 export class AppModule {}

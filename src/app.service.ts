@@ -1,12 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/PrismaService';
+import { PrismaService } from './database/PrismaService';
+
 
 @Injectable()
-export class SeedService {
-	constructor(private prisma: PrismaService) {}
+export class AppService {
+  constructor(private prisma: PrismaService) {}
+
+  getUrl(): string {
+    return this.buildReturnUrl();
+  }
 
   async reSeedDatabase() {
-
     await this.prisma.category.deleteMany();
     await this.prisma.post.deleteMany();
     await this.prisma.user.deleteMany();
@@ -124,7 +128,62 @@ export class SeedService {
       },
     });
 
-    return;
+    return `Database successfully reseeded 🌱...`;
   }
 
+
+
+
+  
+  getExamples() {
+
+    return `
+    query Categories {
+      categories {
+        name
+        posts {
+          title
+          user {
+            name
+          }
+        }
+      }
+    }
+    `;
+  }
+
+  
+  private buildReturnUrl() {
+
+    let html = '';
+    html += `<h1>GraphQL PlayGround</h1>`;
+    html += `<ul>`;
+    html += ` <li>`;
+    html += `   <a href="https://graphql-playground.cyclic.app/graphql">https://graphql-playground.cyclic.app/graphql</a>`;
+    html += `   <ul>`;
+    html += `       <li>`;
+    html += `         <p>Sample GraphQL instance to play around with Users/Posts/Categories</p>`;
+    html += `       </li>`;
+    html += `   </ul>`;
+    html += ` </li>`;
+    html += ` <li>`;
+    html += `   <a href="https://graphql-playground.cyclic.app/seed">https://graphql-playground.cyclic.app/seed</a>`;
+    html += `   <ul>`;
+    html += `       <li>`;
+    html += `         <p>Will Re-Seed all the database (Warning: All previous data will be reset and lost) </p>`;
+    html += `       </li>`;
+    html += `   </ul>`;
+    html += ` </li>`;
+    // html += ` <li>`;
+    // html += `   <a href="https://graphql-playground.cyclic.app/examples">https://graphql-playground.cyclic.app/examples</a>`;
+    // html += `   <ul>`;
+    // html += `       <li>`;
+    // html += `         <p>Some basic example queries and mutations </p>`;
+    // html += `       </li>`;
+    // html += `   </ul>`;
+    // html += ` </li>`;
+    html += `</ul>`;
+
+    return html;
+  }
 }
