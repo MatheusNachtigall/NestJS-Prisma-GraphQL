@@ -1,5 +1,4 @@
 import { Type } from 'class-transformer';
-import { userRoles } from 'prisma-config';
 import { PostCreateNested } from 'src/modules/posts/dto/post.helper.dto';
 
 import {
@@ -13,6 +12,7 @@ import {
 	ValidateNested,
 } from 'class-validator';
 import { EmailNotRegistered } from 'src/shared/decorators/is-email-not-registered';
+import { userRoles } from '@prisma/client';
 
 export class UserCreate {
 	@IsString()

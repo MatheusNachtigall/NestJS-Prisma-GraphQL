@@ -416,7 +416,7 @@ export class PostCreateInput {
     id?: Nullable<string>;
     title: string;
     updated_at?: Nullable<DateTime>;
-    user: UserCreateNestedOneWithoutPostInput;
+    user: UserCreateNestedOneWithoutPostsInput;
 }
 
 export class PostCreateManyInput {
@@ -467,7 +467,7 @@ export class PostCreateWithoutCategoriesInput {
     id?: Nullable<string>;
     title: string;
     updated_at?: Nullable<DateTime>;
-    user: UserCreateNestedOneWithoutPostInput;
+    user: UserCreateNestedOneWithoutPostsInput;
 }
 
 export class PostCreateWithoutUserInput {
@@ -553,7 +553,7 @@ export class PostUpdateInput {
     id?: Nullable<StringFieldUpdateOperationsInput>;
     title?: Nullable<StringFieldUpdateOperationsInput>;
     updated_at?: Nullable<DateTimeFieldUpdateOperationsInput>;
-    user?: Nullable<UserUpdateOneRequiredWithoutPostNestedInput>;
+    user?: Nullable<UserUpdateOneRequiredWithoutPostsNestedInput>;
 }
 
 export class PostUpdateManyMutationInput {
@@ -615,7 +615,7 @@ export class PostUpdateWithoutCategoriesInput {
     id?: Nullable<StringFieldUpdateOperationsInput>;
     title?: Nullable<StringFieldUpdateOperationsInput>;
     updated_at?: Nullable<DateTimeFieldUpdateOperationsInput>;
-    user?: Nullable<UserUpdateOneRequiredWithoutPostNestedInput>;
+    user?: Nullable<UserUpdateOneRequiredWithoutPostsNestedInput>;
 }
 
 export class PostUpdateWithoutUserInput {
@@ -740,11 +740,11 @@ export class UserCountOrderByAggregateInput {
 }
 
 export class UserCreateInput {
-    Post?: Nullable<PostCreateNestedManyWithoutUserInput>;
     created_at?: Nullable<DateTime>;
     email?: Nullable<string>;
     id?: Nullable<string>;
     name: string;
+    posts?: Nullable<PostCreateNestedManyWithoutUserInput>;
     role?: Nullable<userRoles>;
     updated_at?: Nullable<DateTime>;
 }
@@ -758,18 +758,18 @@ export class UserCreateManyInput {
     updated_at?: Nullable<DateTime>;
 }
 
-export class UserCreateNestedOneWithoutPostInput {
+export class UserCreateNestedOneWithoutPostsInput {
     connect?: Nullable<UserWhereUniqueInput>;
-    connectOrCreate?: Nullable<UserCreateOrConnectWithoutPostInput>;
-    create?: Nullable<UserCreateWithoutPostInput>;
+    connectOrCreate?: Nullable<UserCreateOrConnectWithoutPostsInput>;
+    create?: Nullable<UserCreateWithoutPostsInput>;
 }
 
-export class UserCreateOrConnectWithoutPostInput {
-    create: UserCreateWithoutPostInput;
+export class UserCreateOrConnectWithoutPostsInput {
+    create: UserCreateWithoutPostsInput;
     where: UserWhereUniqueInput;
 }
 
-export class UserCreateWithoutPostInput {
+export class UserCreateWithoutPostsInput {
     created_at?: Nullable<DateTime>;
     email?: Nullable<string>;
     id?: Nullable<string>;
@@ -809,11 +809,11 @@ export class UserOrderByWithAggregationInput {
 }
 
 export class UserOrderByWithRelationInput {
-    Post?: Nullable<PostOrderByRelationAggregateInput>;
     created_at?: Nullable<SortOrder>;
     email?: Nullable<SortOrderInput>;
     id?: Nullable<SortOrder>;
     name?: Nullable<SortOrder>;
+    posts?: Nullable<PostOrderByRelationAggregateInput>;
     role?: Nullable<SortOrderInput>;
     updated_at?: Nullable<SortOrder>;
 }
@@ -836,11 +836,11 @@ export class UserScalarWhereWithAggregatesInput {
 }
 
 export class UserUpdateInput {
-    Post?: Nullable<PostUpdateManyWithoutUserNestedInput>;
     created_at?: Nullable<DateTimeFieldUpdateOperationsInput>;
     email?: Nullable<NullableStringFieldUpdateOperationsInput>;
     id?: Nullable<StringFieldUpdateOperationsInput>;
     name?: Nullable<StringFieldUpdateOperationsInput>;
+    posts?: Nullable<PostUpdateManyWithoutUserNestedInput>;
     role?: Nullable<NullableEnumuserRolesFieldUpdateOperationsInput>;
     updated_at?: Nullable<DateTimeFieldUpdateOperationsInput>;
 }
@@ -854,15 +854,15 @@ export class UserUpdateManyMutationInput {
     updated_at?: Nullable<DateTimeFieldUpdateOperationsInput>;
 }
 
-export class UserUpdateOneRequiredWithoutPostNestedInput {
+export class UserUpdateOneRequiredWithoutPostsNestedInput {
     connect?: Nullable<UserWhereUniqueInput>;
-    connectOrCreate?: Nullable<UserCreateOrConnectWithoutPostInput>;
-    create?: Nullable<UserCreateWithoutPostInput>;
-    update?: Nullable<UserUpdateWithoutPostInput>;
-    upsert?: Nullable<UserUpsertWithoutPostInput>;
+    connectOrCreate?: Nullable<UserCreateOrConnectWithoutPostsInput>;
+    create?: Nullable<UserCreateWithoutPostsInput>;
+    update?: Nullable<UserUpdateWithoutPostsInput>;
+    upsert?: Nullable<UserUpsertWithoutPostsInput>;
 }
 
-export class UserUpdateWithoutPostInput {
+export class UserUpdateWithoutPostsInput {
     created_at?: Nullable<DateTimeFieldUpdateOperationsInput>;
     email?: Nullable<NullableStringFieldUpdateOperationsInput>;
     id?: Nullable<StringFieldUpdateOperationsInput>;
@@ -871,20 +871,20 @@ export class UserUpdateWithoutPostInput {
     updated_at?: Nullable<DateTimeFieldUpdateOperationsInput>;
 }
 
-export class UserUpsertWithoutPostInput {
-    create: UserCreateWithoutPostInput;
-    update: UserUpdateWithoutPostInput;
+export class UserUpsertWithoutPostsInput {
+    create: UserCreateWithoutPostsInput;
+    update: UserUpdateWithoutPostsInput;
 }
 
 export class UserWhereInput {
     AND?: Nullable<UserWhereInput[]>;
     NOT?: Nullable<UserWhereInput[]>;
     OR?: Nullable<UserWhereInput[]>;
-    Post?: Nullable<PostListRelationFilter>;
     created_at?: Nullable<DateTimeFilter>;
     email?: Nullable<StringNullableFilter>;
     id?: Nullable<StringFilter>;
     name?: Nullable<StringFilter>;
+    posts?: Nullable<PostListRelationFilter>;
     role?: Nullable<EnumuserRolesNullableFilter>;
     updated_at?: Nullable<DateTimeFilter>;
 }
@@ -1100,18 +1100,18 @@ export abstract class IQuery {
 }
 
 export class User {
-    Post?: Post[];
     _count?: Nullable<UserCount>;
     created_at: DateTime;
     email?: Nullable<string>;
     id: string;
     name: string;
+    posts?: Post[];
     role?: Nullable<userRoles>;
     updated_at: DateTime;
 }
 
 export class UserCount {
-    Post?: number;
+    posts?: number;
 }
 
 export class UserCountAggregate {

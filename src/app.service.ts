@@ -43,7 +43,7 @@ export class AppService {
         name: 'user1',
         email: 'user1@email.com',
         role: 'ARCHITECT',
-        Post: {
+        posts: {
           create: [
             {
               title: 'monorepo setup',
@@ -78,7 +78,7 @@ export class AppService {
         name: 'user2',
         email: 'user2@email.com',
         role: 'LEAD',
-        Post: {
+        posts: {
           create: [
             {
               title: 'Back-end setup',
@@ -118,7 +118,7 @@ export class AppService {
         name: 'user3',
         email: 'user3@email.com',
         // role: '',  -> DEFAULTS to 'SENIOR'
-        Post: {
+        posts: {
           create: [
             {
               title: 'Setting up authentication',
