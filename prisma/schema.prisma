@@ -8,11 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// generator typegraphql {
-//   provider = "typegraphql-prisma"
-//   output   = "../__generated__/type-graphql"
-// }
-
 enum userRoles {
   ARCHITECT
   LEAD
