@@ -12,7 +12,7 @@ import {
 	ValidateNested,
 } from 'class-validator';
 import { EmailNotRegistered } from 'src/shared/decorators/is-email-not-registered';
-import { userRoles } from '@prisma/client';
+import { userRoles } from 'src/graphql.schema';
 
 export class UserCreate {
 	@IsString()
