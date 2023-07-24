@@ -7,12 +7,6 @@ type AffectedRowsOutput {
   count: Int!
 }
 
-type AggregateCategory {
-  _count: CategoryCountAggregate
-  _max: CategoryMaxAggregate
-  _min: CategoryMinAggregate
-}
-
 type AggregatePost {
   _count: PostCountAggregate
   _max: PostMaxAggregate
@@ -23,227 +17,6 @@ type AggregateUser {
   _count: UserCountAggregate
   _max: UserMaxAggregate
   _min: UserMinAggregate
-}
-
-type Category {
-  _count: CategoryCount
-  created_at: DateTime!
-  id: String!
-  name: String!
-  posts(cursor: PostWhereUniqueInput, distinct: [PostScalarFieldEnum!], orderBy: [PostOrderByWithRelationInput!], skip: Int, take: Int, where: PostWhereInput): [Post!]!
-  updated_at: DateTime!
-}
-
-type CategoryCount {
-  posts(where: PostWhereInput): Int!
-}
-
-type CategoryCountAggregate {
-  _all: Int!
-  created_at: Int!
-  id: Int!
-  name: Int!
-  updated_at: Int!
-}
-
-input CategoryCountOrderByAggregateInput {
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-input CategoryCreateInput {
-  created_at: DateTime
-  id: String
-  name: String!
-  posts: PostCreateNestedManyWithoutCategoriesInput
-  updated_at: DateTime
-}
-
-input CategoryCreateManyInput {
-  created_at: DateTime
-  id: String
-  name: String!
-  updated_at: DateTime
-}
-
-input CategoryCreateNestedManyWithoutPostsInput {
-  connect: [CategoryWhereUniqueInput!]
-  connectOrCreate: [CategoryCreateOrConnectWithoutPostsInput!]
-  create: [CategoryCreateWithoutPostsInput!]
-}
-
-input CategoryCreateOrConnectWithoutPostsInput {
-  create: CategoryCreateWithoutPostsInput!
-  where: CategoryWhereUniqueInput!
-}
-
-input CategoryCreateWithoutPostsInput {
-  created_at: DateTime
-  id: String
-  name: String!
-  updated_at: DateTime
-}
-
-type CategoryGroupBy {
-  _count: CategoryCountAggregate
-  _max: CategoryMaxAggregate
-  _min: CategoryMinAggregate
-  created_at: DateTime!
-  id: String!
-  name: String!
-  updated_at: DateTime!
-}
-
-input CategoryListRelationFilter {
-  every: CategoryWhereInput
-  none: CategoryWhereInput
-  some: CategoryWhereInput
-}
-
-type CategoryMaxAggregate {
-  created_at: DateTime
-  id: String
-  name: String
-  updated_at: DateTime
-}
-
-input CategoryMaxOrderByAggregateInput {
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-type CategoryMinAggregate {
-  created_at: DateTime
-  id: String
-  name: String
-  updated_at: DateTime
-}
-
-input CategoryMinOrderByAggregateInput {
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-input CategoryOrderByRelationAggregateInput {
-  _count: SortOrder
-}
-
-input CategoryOrderByWithAggregationInput {
-  _count: CategoryCountOrderByAggregateInput
-  _max: CategoryMaxOrderByAggregateInput
-  _min: CategoryMinOrderByAggregateInput
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  updated_at: SortOrder
-}
-
-input CategoryOrderByWithRelationInput {
-  created_at: SortOrder
-  id: SortOrder
-  name: SortOrder
-  posts: PostOrderByRelationAggregateInput
-  updated_at: SortOrder
-}
-
-enum CategoryScalarFieldEnum {
-  created_at
-  id
-  name
-  updated_at
-}
-
-input CategoryScalarWhereInput {
-  AND: [CategoryScalarWhereInput!]
-  NOT: [CategoryScalarWhereInput!]
-  OR: [CategoryScalarWhereInput!]
-  created_at: DateTimeFilter
-  id: StringFilter
-  name: StringFilter
-  updated_at: DateTimeFilter
-}
-
-input CategoryScalarWhereWithAggregatesInput {
-  AND: [CategoryScalarWhereWithAggregatesInput!]
-  NOT: [CategoryScalarWhereWithAggregatesInput!]
-  OR: [CategoryScalarWhereWithAggregatesInput!]
-  created_at: DateTimeWithAggregatesFilter
-  id: StringWithAggregatesFilter
-  name: StringWithAggregatesFilter
-  updated_at: DateTimeWithAggregatesFilter
-}
-
-input CategoryUpdateInput {
-  created_at: DateTimeFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  posts: PostUpdateManyWithoutCategoriesNestedInput
-  updated_at: DateTimeFieldUpdateOperationsInput
-}
-
-input CategoryUpdateManyMutationInput {
-  created_at: DateTimeFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  updated_at: DateTimeFieldUpdateOperationsInput
-}
-
-input CategoryUpdateManyWithWhereWithoutPostsInput {
-  data: CategoryUpdateManyMutationInput!
-  where: CategoryScalarWhereInput!
-}
-
-input CategoryUpdateManyWithoutPostsNestedInput {
-  connect: [CategoryWhereUniqueInput!]
-  connectOrCreate: [CategoryCreateOrConnectWithoutPostsInput!]
-  create: [CategoryCreateWithoutPostsInput!]
-  delete: [CategoryWhereUniqueInput!]
-  deleteMany: [CategoryScalarWhereInput!]
-  disconnect: [CategoryWhereUniqueInput!]
-  set: [CategoryWhereUniqueInput!]
-  update: [CategoryUpdateWithWhereUniqueWithoutPostsInput!]
-  updateMany: [CategoryUpdateManyWithWhereWithoutPostsInput!]
-  upsert: [CategoryUpsertWithWhereUniqueWithoutPostsInput!]
-}
-
-input CategoryUpdateWithWhereUniqueWithoutPostsInput {
-  data: CategoryUpdateWithoutPostsInput!
-  where: CategoryWhereUniqueInput!
-}
-
-input CategoryUpdateWithoutPostsInput {
-  created_at: DateTimeFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  name: StringFieldUpdateOperationsInput
-  updated_at: DateTimeFieldUpdateOperationsInput
-}
-
-input CategoryUpsertWithWhereUniqueWithoutPostsInput {
-  create: CategoryCreateWithoutPostsInput!
-  update: CategoryUpdateWithoutPostsInput!
-  where: CategoryWhereUniqueInput!
-}
-
-input CategoryWhereInput {
-  AND: [CategoryWhereInput!]
-  NOT: [CategoryWhereInput!]
-  OR: [CategoryWhereInput!]
-  created_at: DateTimeFilter
-  id: StringFilter
-  name: StringFilter
-  posts: PostListRelationFilter
-  updated_at: DateTimeFilter
-}
-
-input CategoryWhereUniqueInput {
-  id: String
-  name: String
 }
 
 """
@@ -298,25 +71,18 @@ input EnumuserRolesNullableWithAggregatesFilter {
 }
 
 type Mutation {
-  createManyCategory(data: [CategoryCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyPost(data: [PostCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
   createManyUser(data: [UserCreateManyInput!]!, skipDuplicates: Boolean): AffectedRowsOutput!
-  createOneCategory(data: CategoryCreateInput!): Category!
   createOnePost(data: PostCreateInput!): Post!
   createOneUser(data: UserCreateInput!): User!
-  deleteManyCategory(where: CategoryWhereInput): AffectedRowsOutput!
   deleteManyPost(where: PostWhereInput): AffectedRowsOutput!
   deleteManyUser(where: UserWhereInput): AffectedRowsOutput!
-  deleteOneCategory(where: CategoryWhereUniqueInput!): Category
   deleteOnePost(where: PostWhereUniqueInput!): Post
   deleteOneUser(where: UserWhereUniqueInput!): User
-  updateManyCategory(data: CategoryUpdateManyMutationInput!, where: CategoryWhereInput): AffectedRowsOutput!
   updateManyPost(data: PostUpdateManyMutationInput!, where: PostWhereInput): AffectedRowsOutput!
   updateManyUser(data: UserUpdateManyMutationInput!, where: UserWhereInput): AffectedRowsOutput!
-  updateOneCategory(data: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category
   updateOnePost(data: PostUpdateInput!, where: PostWhereUniqueInput!): Post
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  upsertOneCategory(create: CategoryCreateInput!, update: CategoryUpdateInput!, where: CategoryWhereUniqueInput!): Category!
   upsertOnePost(create: PostCreateInput!, update: PostUpdateInput!, where: PostWhereUniqueInput!): Post!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
@@ -461,18 +227,12 @@ enum NullsOrder {
 }
 
 type Post {
-  _count: PostCount
-  categories(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
   created_at: DateTime!
   id: String!
   title: String!
   updated_at: DateTime!
   user: User!
   userId: String!
-}
-
-type PostCount {
-  categories(where: CategoryWhereInput): Int!
 }
 
 type PostCountAggregate {
@@ -493,7 +253,6 @@ input PostCountOrderByAggregateInput {
 }
 
 input PostCreateInput {
-  categories: CategoryCreateNestedManyWithoutPostsInput
   created_at: DateTime
   id: String
   title: String!
@@ -521,12 +280,6 @@ input PostCreateManyUserInputEnvelope {
   skipDuplicates: Boolean
 }
 
-input PostCreateNestedManyWithoutCategoriesInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutCategoriesInput!]
-  create: [PostCreateWithoutCategoriesInput!]
-}
-
 input PostCreateNestedManyWithoutUserInput {
   connect: [PostWhereUniqueInput!]
   connectOrCreate: [PostCreateOrConnectWithoutUserInput!]
@@ -534,26 +287,12 @@ input PostCreateNestedManyWithoutUserInput {
   createMany: PostCreateManyUserInputEnvelope
 }
 
-input PostCreateOrConnectWithoutCategoriesInput {
-  create: PostCreateWithoutCategoriesInput!
-  where: PostWhereUniqueInput!
-}
-
 input PostCreateOrConnectWithoutUserInput {
   create: PostCreateWithoutUserInput!
   where: PostWhereUniqueInput!
 }
 
-input PostCreateWithoutCategoriesInput {
-  created_at: DateTime
-  id: String
-  title: String!
-  updated_at: DateTime
-  user: UserCreateNestedOneWithoutPostInput!
-}
-
 input PostCreateWithoutUserInput {
-  categories: CategoryCreateNestedManyWithoutPostsInput
   created_at: DateTime
   id: String
   title: String!
@@ -625,7 +364,6 @@ input PostOrderByWithAggregationInput {
 }
 
 input PostOrderByWithRelationInput {
-  categories: CategoryOrderByRelationAggregateInput
   created_at: SortOrder
   id: SortOrder
   title: SortOrder
@@ -665,7 +403,6 @@ input PostScalarWhereWithAggregatesInput {
 }
 
 input PostUpdateInput {
-  categories: CategoryUpdateManyWithoutPostsNestedInput
   created_at: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
@@ -680,27 +417,9 @@ input PostUpdateManyMutationInput {
   updated_at: DateTimeFieldUpdateOperationsInput
 }
 
-input PostUpdateManyWithWhereWithoutCategoriesInput {
-  data: PostUpdateManyMutationInput!
-  where: PostScalarWhereInput!
-}
-
 input PostUpdateManyWithWhereWithoutUserInput {
   data: PostUpdateManyMutationInput!
   where: PostScalarWhereInput!
-}
-
-input PostUpdateManyWithoutCategoriesNestedInput {
-  connect: [PostWhereUniqueInput!]
-  connectOrCreate: [PostCreateOrConnectWithoutCategoriesInput!]
-  create: [PostCreateWithoutCategoriesInput!]
-  delete: [PostWhereUniqueInput!]
-  deleteMany: [PostScalarWhereInput!]
-  disconnect: [PostWhereUniqueInput!]
-  set: [PostWhereUniqueInput!]
-  update: [PostUpdateWithWhereUniqueWithoutCategoriesInput!]
-  updateMany: [PostUpdateManyWithWhereWithoutCategoriesInput!]
-  upsert: [PostUpsertWithWhereUniqueWithoutCategoriesInput!]
 }
 
 input PostUpdateManyWithoutUserNestedInput {
@@ -717,36 +436,16 @@ input PostUpdateManyWithoutUserNestedInput {
   upsert: [PostUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input PostUpdateWithWhereUniqueWithoutCategoriesInput {
-  data: PostUpdateWithoutCategoriesInput!
-  where: PostWhereUniqueInput!
-}
-
 input PostUpdateWithWhereUniqueWithoutUserInput {
   data: PostUpdateWithoutUserInput!
   where: PostWhereUniqueInput!
 }
 
-input PostUpdateWithoutCategoriesInput {
-  created_at: DateTimeFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  title: StringFieldUpdateOperationsInput
-  updated_at: DateTimeFieldUpdateOperationsInput
-  user: UserUpdateOneRequiredWithoutPostNestedInput
-}
-
 input PostUpdateWithoutUserInput {
-  categories: CategoryUpdateManyWithoutPostsNestedInput
   created_at: DateTimeFieldUpdateOperationsInput
   id: StringFieldUpdateOperationsInput
   title: StringFieldUpdateOperationsInput
   updated_at: DateTimeFieldUpdateOperationsInput
-}
-
-input PostUpsertWithWhereUniqueWithoutCategoriesInput {
-  create: PostCreateWithoutCategoriesInput!
-  update: PostUpdateWithoutCategoriesInput!
-  where: PostWhereUniqueInput!
 }
 
 input PostUpsertWithWhereUniqueWithoutUserInput {
@@ -759,7 +458,6 @@ input PostWhereInput {
   AND: [PostWhereInput!]
   NOT: [PostWhereInput!]
   OR: [PostWhereInput!]
-  categories: CategoryListRelationFilter
   created_at: DateTimeFilter
   id: StringFilter
   title: StringFilter
@@ -773,21 +471,14 @@ input PostWhereUniqueInput {
 }
 
 type Query {
-  aggregateCategory(cursor: CategoryWhereUniqueInput, orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): AggregateCategory!
   aggregatePost(cursor: PostWhereUniqueInput, orderBy: [PostOrderByWithRelationInput!], skip: Int, take: Int, where: PostWhereInput): AggregatePost!
   aggregateUser(cursor: UserWhereUniqueInput, orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): AggregateUser!
-  categories(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): [Category!]!
-  category(where: CategoryWhereUniqueInput!): Category
-  findFirstCategory(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): Category
-  findFirstCategoryOrThrow(cursor: CategoryWhereUniqueInput, distinct: [CategoryScalarFieldEnum!], orderBy: [CategoryOrderByWithRelationInput!], skip: Int, take: Int, where: CategoryWhereInput): Category
   findFirstPost(cursor: PostWhereUniqueInput, distinct: [PostScalarFieldEnum!], orderBy: [PostOrderByWithRelationInput!], skip: Int, take: Int, where: PostWhereInput): Post
   findFirstPostOrThrow(cursor: PostWhereUniqueInput, distinct: [PostScalarFieldEnum!], orderBy: [PostOrderByWithRelationInput!], skip: Int, take: Int, where: PostWhereInput): Post
   findFirstUser(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
   findFirstUserOrThrow(cursor: UserWhereUniqueInput, distinct: [UserScalarFieldEnum!], orderBy: [UserOrderByWithRelationInput!], skip: Int, take: Int, where: UserWhereInput): User
-  getCategory(where: CategoryWhereUniqueInput!): Category
   getPost(where: PostWhereUniqueInput!): Post
   getUser(where: UserWhereUniqueInput!): User
-  groupByCategory(by: [CategoryScalarFieldEnum!]!, having: CategoryScalarWhereWithAggregatesInput, orderBy: [CategoryOrderByWithAggregationInput!], skip: Int, take: Int, where: CategoryWhereInput): [CategoryGroupBy!]!
   groupByPost(by: [PostScalarFieldEnum!]!, having: PostScalarWhereWithAggregatesInput, orderBy: [PostOrderByWithAggregationInput!], skip: Int, take: Int, where: PostWhereInput): [PostGroupBy!]!
   groupByUser(by: [UserScalarFieldEnum!]!, having: UserScalarWhereWithAggregatesInput, orderBy: [UserOrderByWithAggregationInput!], skip: Int, take: Int, where: UserWhereInput): [UserGroupBy!]!
   post(where: PostWhereUniqueInput!): Post

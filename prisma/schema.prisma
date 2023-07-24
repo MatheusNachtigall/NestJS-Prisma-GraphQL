@@ -8,6 +8,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../__generated__/type-graphql"
+}
+
 enum userRoles {
   ARCHITECT
   LEAD
@@ -22,7 +27,7 @@ model User {
   id         String   @id @default(uuid())
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  Post       Post[]
+  posts      Post[]
 
   @@map("users")
 }
