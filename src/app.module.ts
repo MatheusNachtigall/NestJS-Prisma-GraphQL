@@ -8,6 +8,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaService } from './database/PrismaService';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
 	imports: [
@@ -21,6 +22,7 @@ import { PrismaService } from './database/PrismaService';
 		UsersModule,
 		PostsModule,
 		CategoriesModule,
+		SharedModule,
 	],
 	controllers: [AppController],
 	providers: [AppService, PrismaService],

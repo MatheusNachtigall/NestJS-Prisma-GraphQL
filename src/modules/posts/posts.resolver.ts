@@ -1,19 +1,17 @@
 import { Resolver, Query, Mutation, Args, Info } from '@nestjs/graphql';
 import { PostsService } from './posts.service';
-import { Prisma } from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
-import { transformArgsIntoSelectRelations, transformInfoIntoPrismaArgs } from 'src/helpers/helpers';
+import { PostCreate } from './dto/post.dto';
+import { GraphqlTransformService } from '../../shared/services/graphql-transform.service';
 
 @Resolver('Post')
 export class PostsResolver {
-	constructor(private readonly postsService: PostsService) {}
+	constructor(private readonly postsService: PostsService, private graphqlTransform: GraphqlTransformService) {}
 
 	@Mutation('createOnePost')
-	create(@Args('') inputData: any, @Info() info: GraphQLResolveInfo) {
-		const PostInput: Prisma.PostCreateInput = inputData.data;
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
-		return this.postsService.create(PostInput, selectFields);
+	create(@Args('data') inputData: PostCreate, @Info() info: GraphQLResolveInfo) {
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
+		return this.postsService.create(inputData, selectFields);
 	}
 
 	@Mutation('createManyPost')
@@ -23,34 +21,33 @@ export class PostsResolver {
 
 	@Query('aggregatePost')
 	aggregate(@Args('') args: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
+		const { prismaArgs } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
 		return this.postsService.aggregate(args, prismaArgs);
+	}
+
+	@Query('post')
+	findUnique(@Args('where') object: any) {
+		return this.postsService.findUnique(object);
 	}
 
 	@Query('posts')
 	findAll(@Args('') object: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
 
 		return this.postsService.findAll(object, selectFields);
 	}
 
 	@Query('findFirstPostOrThrow')
 	findFirstPostOrThrow(@Args('') object: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
-		return this.postsService.findFirstPostOrThrow(object, selectFields);
-	}
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
 
-	@Query('post')
-	findUnique(@Args('where') object: any, @Info() info: GraphQLResolveInfo) {
-		return this.postsService.findUnique(object);
+		return this.postsService.findFirstPostOrThrow(object, selectFields);
 	}
 
 	@Mutation('updateOnePost')
 	update(@Args('') object: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
+
 		return this.postsService.update(object, selectFields);
 	}
 

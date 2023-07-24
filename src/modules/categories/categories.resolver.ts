@@ -1,19 +1,20 @@
 import { Resolver, Query, Mutation, Args, Info } from '@nestjs/graphql';
 import { CategoriesService } from './categories.service';
-import { Prisma } from '@prisma/client';
 import { GraphQLResolveInfo } from 'graphql';
-import { transformArgsIntoSelectRelations, transformInfoIntoPrismaArgs } from 'src/helpers/helpers';
+import { GraphqlTransformService } from '../../shared/services/graphql-transform.service';
+import { CategoryCreate } from './dto/category.dto';
 
 @Resolver('Category')
 export class CategoriesResolver {
-	constructor(private readonly categoriesService: CategoriesService) {}
+	constructor(
+		private readonly categoriesService: CategoriesService,
+		private graphqlTransform: GraphqlTransformService,
+	) {}
 
 	@Mutation('createOneCategory')
-	create(@Args('') inputData: any, @Info() info: GraphQLResolveInfo) {
-		const CategoryInput: Prisma.CategoryCreateInput = inputData.data;
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
-		return this.categoriesService.create(CategoryInput, selectFields);
+	create(@Args('data') inputData: CategoryCreate, @Info() info: GraphQLResolveInfo) {
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
+		return this.categoriesService.create(inputData, selectFields);
 	}
 
 	@Mutation('createManyCategory')
@@ -23,40 +24,35 @@ export class CategoriesResolver {
 
 	@Query('aggregateCategory')
 	aggregate(@Args('') args: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
+		const { prismaArgs } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
 		return this.categoriesService.aggregate(args, prismaArgs);
 	}
 
 	@Query('categories')
 	findAll(@Args('') object: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
-
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
 		return this.categoriesService.findAll(object, selectFields);
 	}
 
 	@Query('findFirstCategoryOrThrow')
 	findFirstCategoryOrThrow(@Args('') object: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
 		return this.categoriesService.findFirstCategoryOrThrow(object, selectFields);
 	}
 
 	@Query('category')
-	findUnique(@Args('where') object: any, @Info() info: GraphQLResolveInfo) {
+	findUnique(@Args('where') object: any) {
 		return this.categoriesService.findUnique(object);
 	}
 
 	@Mutation('updateOneCategory')
 	update(@Args('') object: any, @Info() info: GraphQLResolveInfo) {
-		const prismaArgs = transformInfoIntoPrismaArgs(info);
-		const selectFields = transformArgsIntoSelectRelations(prismaArgs);
+		const { selectFields } = this.graphqlTransform.transformInfoIntoArgsAndSelectRelations(info);
 		return this.categoriesService.update(object, selectFields);
 	}
 
 	@Mutation('deleteOneCategory')
 	deleteOneCategory(@Args('') object: any) {
-		console.log('id: ' + JSON.stringify(object));
 		return this.categoriesService.deleteOneCategory(object);
 	}
 }
